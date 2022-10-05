@@ -1,4 +1,4 @@
-void cl_read(const double* a, const double* b, const double* c)
+int cl_read(const double* a, const double* b, const double* c)
 {
     assert(a != b && a != c && b != c);
 
@@ -7,13 +7,21 @@ void cl_read(const double* a, const double* b, const double* c)
     assert(c != NULL);
 
     printf("\nWhat's up?\n");
-    printf("Enter a, b, c\n");
+    printf("Enter a, b, c or 'exit'\n\n");
 
-    while (scanf("%lf%lf%lf", a, b, c) != 3 || getchar() != '\n')
+    int sc_val;
+    while ((sc_val = scanf("%lf%lf%lf", a, b, c)) != 3 || getchar() != '\n')
     {
-        printf("Wrong input, try again\n");
+        char in_str[1024];
+        scanf("%s", in_str);
+        if ((strcmp(in_str, "exit") == 0 || strcmp(in_str, "EXIT") == 0) && sc_val != 3)
+            return 1;
+
+        printf("Wrong input, try again\n\n");
         cleaninput();
     }
+
+    return 0;
 }
 
 void cleaninput()
