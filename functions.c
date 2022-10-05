@@ -2,6 +2,10 @@ void cl_read(const double* a, const double* b, const double* c)
 {
     assert(a != b && a != c && b != c);
 
+    assert(a != NULL);
+    assert(b != NULL);
+    assert(c != NULL);
+
     printf("\nWhat's up?\n");
     printf("Enter a, b, c\n");
 
@@ -19,7 +23,14 @@ void cleaninput()
 
 int square_solver(const double a, const double b, const double c, double* x1, double* x2)
 {
-    assert( x1 != x2);
+    assert(isfinite (a));
+    assert(isfinite (b));
+    assert(isfinite (c));
+
+    assert(x1 != NULL);
+    assert(x2 != NULL);
+
+    assert(x1 != x2);
 
     if(a == 0)
         return linear_solver(b, c, x1);
@@ -43,6 +54,11 @@ int square_solver(const double a, const double b, const double c, double* x1, do
 
 int linear_solver(const double b, const double c, double* x1)
 {
+    assert(isfinite (b));
+    assert(isfinite (c));
+
+    assert(x1 != NULL);
+
     if(b == 0 && c != 0)
         return ROOT_NO;
 
@@ -55,6 +71,10 @@ int linear_solver(const double b, const double c, double* x1)
 
 void write_Roots(const int nRoots, const double x1, const double x2)
 {
+    assert(isfinite (x1));
+    assert(isfinite (x2));
+
+
     switch(nRoots)
     {
         case ROOT_INF:
@@ -70,9 +90,12 @@ void write_Roots(const int nRoots, const double x1, const double x2)
             printf("x1 = %lf\nx2 = %lf", x1, x2);
             break;
     }
+    printf("\n");
 }
 
 int compr_0(double a)
 {
+    assert(isfinite (a));
+
     return (fabs(a) < 0.00001);
 }
