@@ -11,13 +11,16 @@ int main ()
         double a = 0;
         double b = 0;
         double c = 0;
-        cl_read(&a, &b, &c);
+        int need_ex = cl_read(&a, &b, &c);
+        if (need_ex)
+            return 0;
 
         double x1 = 0;
         double x2 = 0;
         int nRoots = square_solver(a, b, c, &x1, &x2);
 
         write_Roots(nRoots, x1, x2);
+
     }
 }
 
